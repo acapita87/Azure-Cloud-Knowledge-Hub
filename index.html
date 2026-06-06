@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azure Cloud Knowledge Hub - IaaS, SaaS & Security</title>
+    <meta name="description" content="Partilha de conhecimentos sobre Azure Cloud, IaaS, SaaS, Security e Certificações Microsoft">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0078d4;
+            --secondary: #00a4ef;
+            --dark: #1e1e1e;
+            --light: #f3f3f3;
+            --text: #333;
+            --border: #e0e0e0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--light);
+        }
+
+        /* Navigation */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .mobile-menu {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 0.8rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Main Container */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Cards Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 4px solid var(--primary);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .card p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .card a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .card a:hover {
+            color: var(--secondary);
+        }
+
+        /* Section Titles */
+        h2 {
+            color: var(--primary);
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        /* Learning Paths */
+        .learning-path {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        .learning-path h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .learning-path ol {
+            margin-left: 2rem;
+            color: #666;
+        }
+
+        .learning-path li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Certifications */
+        .cert-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Resources */
+        .resource-list {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .resource-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .resource-item:last-child {
+            border-bottom: none;
+        }
+
+        .resource-item strong {
+            color: var(--primary);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .newsletter h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 0.5rem;
+            max-width: 500px;
+            margin: 1.5rem auto 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            min-width: 200px;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .newsletter-form button {
+            padding: 0.8rem 1.5rem;
+            background: white;
+            color: var(--primary);
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: #999;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section a {
+            color: #999;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 2rem;
+            color: #666;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-form input,
+            .newsletter-form button {
+                width: 100%;
+            }
+        }
+
+        /* Utilities */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">☁️ Azure Cloud Hub</div>
+            <ul class="nav-links">
+                <li><a href="#iaas">IaaS</a></li>
+                <li><a href="#saas">SaaS</a></li>
+                <li><a href="#security">Security</a></li>
+                <li><a href="#certifications">Certificações</a></li>
+                <li><a href="#resources">Recursos</a></li>
+            </ul>
+            <button class="mobile-menu">☰</button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Azure Cloud Knowledge Hub</h1>
+            <p>Aprenda sobre IaaS, SaaS, Security e prepare-se para as certificações Microsoft Azure</p>
+            <button class="cta-button" onclick="document.getElementById('iaas').scrollIntoView({behavior: 'smooth'})">Começar a Aprender</button>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <!-- IaaS Section -->
+        <section id="iaas">
+            <h2>☁️ Infrastructure as a Service (IaaS)</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Compute</h3>
+                    <p>Virtual Machines, App Service, Container Instances e Kubernetes (AKS) para deploy de aplicações.</p>
+                    <ul style="margin-left: 1.5rem; color: #666;">
+                        <li>Azure Virtual Machines (VMs)</li>
+                        <li>Virtual Machine Scale Sets (VMSS)</li>
+                        <li>Azure Container Instances (ACI)</li>
+                        <li>Azure Kubernetes Service (AKS)</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Storage</h3>
+                    <p>Soluções de armazenamento escalável para dados, backups e disaster recovery.</p>
+                    <ul style="margin-left: 1.5rem; color: #666;">
+                        <li>Blob Storage (Object Storage)</li>
+                        <li>File Shares (SMB/NFS)</li>
+                        <li>Managed Disks</li>
+                        <li>Archive Storage</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Networking</h3>
+                    <p>Conectividade, routing e segurança de rede para infraestruturas distribuídas.</p>
+                    <ul style="margin-left: 1.5rem; color: #666;">
+                        <li>Virtual Networks (VNets)</li>
+                        <li>Load Balancers</li>
+                        <li>Application Gateway</li>
+                        <li>ExpressRoute & VPN</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Database</h3>
+                    <p>Bases de dados geridas para OLTP e OLAP com escalabilidade automática.</p>
+                    <ul style="margin-left: 1.5rem; color: #666;">
+                        <li>Azure SQL Database</li>
+                        <li>MySQL/PostgreSQL</li>
+                        <li>Cosmos DB (NoSQL)</li>
+                        <li>Data Lake Storage Gen2</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Backup & Disaster Recovery</h3>
+                    <p>Proteção de dados e continuidade de negócio com Azure Backup e Site Recovery.</p>
+                    <ul style="margin-left: 1.5rem; color: #666;">
+                        <li>Azure Backup</li>
+                        <li>Azure Site Recovery (ASR)</li>
+                        <li>Geo-redundant Storage</li>
+                        <li>Data Box para migração</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Management & Monitoring</h3>
+                    <p>Ferramentas para gerir, monitorar e otimizar infraestruturas Azure.</p>
+                    <ul style="margin-left: 1.5rem; color: #666;">
+                        <li>Azure Monitor</li>
+                        <li>Log Analytics</li>
+                        <li>Azure Automation</li>
+                        <li>Policy & Blueprints</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="learning-path">
+                <h4>📚 Caminho de Aprendizagem - IaaS Fundamentals</h4>
+                <ol>
+                    <li>Conceitos básicos de Cloud Computing e modelos de serviço</li>
+                    <li>Azure Virtual Machines - criação, configuração e gestão</li>
+                    <li>Redes - VNets, Subnets, NSGs e segurança</li>
+                    <li>Storage - Blobs, Files, Disks e replicação</li>
+                    <li>Databases geridas - SQL Database e Cosmos DB</li>
+                    <li>Backup, Disaster Recovery e Business Continuity</li>
+                    <li>Monitoring, Logging e Troubleshooting</li>
+                    <li>Cost Management e Otimização</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- SaaS Section -->
+        <section id="saas">
+            <h2>🔧 Software as a Service (SaaS) & PaaS</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Microsoft 365</h3>
+                    <p>Serviços produtividade na cloud: Teams, SharePoint, OneDrive e Exchange.</p>
+                    <ul style="margin-left: 1.5rem; color: #666;">
+                        <li>Microsoft Teams (colaboração)</li>
+                        <li>SharePoint Online</li>
+                        <li>OneDrive for Business</li>
+                        <li>Exchange Online</li>
+                        <li>Power Platform (Power Apps, Automate, BI)</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Dynamics 365</h3>
+                    <p>Aplicações de negócio cloud para ERP e CRM.</p>
+                    <ul style="margin-left: 1.5rem; color: #666;">
+                        <li>Dynamics 365 Sales</li>
+                        <li>Dynamics 365 Customer Service</li>
+                        <li>Dynamics 365 Finance & Operations</li>
+                        <li>Project Operations</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Azure App Service</h3>
+                    <p>Platform as a Service para hospedar aplicações web, móveis e APIs.</p>
+                    <ul style="margin-left: 1.5rem; color: #666;">
+                        <li>Web Apps (ASP.NET, Node.js, Python)</li>
+                        <li>Mobile Apps</li>
+                        <li>API Apps</li>
+                        <li>Logic Apps (Workflow Automation)</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Functions & Serverless</h3>
+                    <p>Compute serverless para processamento de eventos e funções orientadas por gatilhos.</p>
+                    <ul style="margin-left: 1.5rem; color: #666;">
+                        <li>Azure Functions</li>
+                        <li>Event Grid</li>
+                        <li>Service Bus</li>
+                        <li>Queue Storage</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Analytics & Big Data</h3>
+                    <p>Plataformas para análise, BI e processamento de grandes volumes de dados.</p>
+                    <ul style="margin-left: 1.5rem; color: #666;">
+                        <li>Synapse Analytics</li>
+                        <li>Power BI</li>
+                        <li>Data Factory (ETL)</li>
+                        <li>Databricks</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>AI & Machine Learning</h3>
+                    <p>Serviços de IA e ML para modelos preditivos e cognitive services.</p>
+                    <ul style="margin-left: 1.5rem; color: #666;">
+                        <li>Azure Machine Learning</li>
+                        <li>Azure AI Services (OpenAI, Vision, Language)</li>
+                        <li>Cognitive Search</li>
+                        <li>Bot Service</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="learning-path">
+                <h4>📚 Caminho de Aprendizagem - SaaS & PaaS</h4>
+                <ol>
+                    <li>Microsoft 365 e colaboração digital</li>
+                    <li>Azure App Service - deploy e gestão de web apps</li>
+                    <li>Serverless Computing - Functions, Logic Apps e Automação</li>
+                    <li>APIs, integração e mensageria</li>
+                    <li>Autenticação em SaaS - OAuth, SAML e integração com Entra ID</li>
+                    <li>Análise de dados e Business Intelligence</li>
+                    <li>Cloud-native applications e containers</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Security Section -->
+        <section id="security">
+            <h2>🔐 Azure Security & Identity</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Identity & Access (Zero Trust)</h3>
+                    <p>Autenticação forte, MFA, PIM e Conditional Access para acesso seguro.</p>
+                    <ul style="margin-left: 1.5rem; color: #666;">
+                        <li>Azure Entra ID (AAD)</li>
+                        <li>Multi-Factor Authentication (MFA)</li>
+                        <li>Privileged Identity Management (PIM)</li>
+                        <li>Conditional Access</li>
+                        <li>Identity Protection</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Network Security</h3>
+                    <p>Segurança de perímetro com firewalls, NSGs e DDoS protection.</p>
+                    <ul style="margin-left: 1.5rem; color: #666;">
+                        <li>Network Security Groups (NSGs)</li>
+                        <li>Azure Firewall</li>
+                        <li>DDoS Protection</li>
+                        <li>WAF (Web Application Firewall)</li>
+                        <li>Private Endpoints</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Data Protection</h3>
+                    <p>Criptografia, TDE, BYOK e proteção de dados em repouso e em trânsito.</p>
+                    <ul style="margin-left: 1.5rem; color: #666;">
+                        <li>Azure Key Vault</li>
+                        <li>Transparent Data Encryption (TDE)</li>
+                        <li>Bring Your Own Key (BYOK)</li>
+                        <li>SQL Always Encrypted</li>
+                        <li>Data Classification</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Compliance & Governance</h3>
+                    <p>Ferramentas para auditoria, compliance e governança de recursos.</p>
+                    <ul style="margin-left: 1.5rem; color: #666;">
+                        <li>Azure Policy</li>
+                        <li>Azure Blueprints</li>
+                        <li>Compliance Manager</li>
+                        <li>Audit Logs (Azure Activity Log)</li>
+                        <li>Security & Compliance Center</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Threat Detection & Response</h3>
+                    <p>Detecção de ameaças, SIEM e resposta a incidentes de segurança.</p>
+                    <ul style="margin-left: 1.5rem; color: #666;">
+                        <li>Microsoft Defender for Cloud</li>
+                        <li>Microsoft Sentinel (SIEM)</li>
+                        <li>Threat Intelligence</li>
+                        <li>Security Alert Management</li>
+                        <li>Incident Response</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Application Security</h3>
+                    <p>Segurança ao nível da aplicação com DevSecOps e vulnerability scanning.</p>
+                    <ul style="margin-left: 1.5rem; color: #666;">
+                        <li>Defender for DevOps</li>
+                        <li>Code Scanning & Analysis</li>
+                        <li>Container Security</li>
+                        <li>API Security</li>
+                        <li>SAST & DAST Tools</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="learning-path">
+                <h4>🔐 Caminho de Aprendizagem - Security & Compliance</h4>
+                <ol>
+                    <li>Princípios de Zero Trust Architecture</li>
+                    <li>Azure Entra ID - autenticação, autorização e Conditional Access</li>
+                    <li>Privileged Access Management (PIM)</li>
+                    <li>Network Security - NSGs, Firewalls, DDoS Protection</li>
+                    <li>Data Protection - Encryption, Key Vault, TDE</li>
+                    <li>Compliance frameworks - GDPR, ISO 27001, SOC 2</li>
+                    <li>Microsoft Defender for Cloud - assessment e hardening</li>
+                    <li>Microsoft Sentinel - SIEM, detecção de ameaças e hunting</li>
+                    <li>Incident Response e Disaster Recovery</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Certifications Section -->
+        <section id="certifications">
+            <h2>🎓 Certificações Microsoft Azure</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Fundamentals</h3>
+                    <p>Certificações iniciais para compreender conceitos básicos de cloud.</p>
+                    <div style="margin-top: 1rem;">
+                        <span class="cert-badge">AZ-900</span>
+                        <p style="margin-top: 0.5rem; font-size: 0.95rem; color: #666;">Azure Fundamentals - Conceitos básicos de cloud computing</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Associate</h3>
+                    <p>Certificações de nível profissional para especialistas Azure.</p>
+                    <div style="margin-top: 1rem;">
+                        <span class="cert-badge">AZ-104</span>
+                        <p style="margin-top: 0.5rem; font-size: 0.95rem; color: #666;">Azure Administrator - Gestão de infraestruturas</p>
+                        <span class="cert-badge">AZ-500</span>
+                        <p style="margin-top: 0.5rem; font-size: 0.95rem; color: #666;">Azure Security Engineer - Segurança e compliance</p>
+                        <span class="cert-badge">AZ-204</span>
+                        <p style="margin-top: 0.5rem; font-size: 0.95rem; color: #666;">Azure Developer - Desenvolvimento cloud</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Expert</h3>
+                    <p>Certificações de especialista para arquitetos e profissionais sénior.</p>
+                    <div style="margin-top: 1rem;">
+                        <span class="cert-badge">AZ-305</span>
+                        <p style="margin-top: 0.5rem; font-size: 0.95rem; color: #666;">Azure Solutions Architect Expert - Design de soluções</p>
+                        <span class="cert-badge">AZ-303</span>
+                        <p style="margin-top: 0.5rem; font-size: 0.95rem; color: #666;">Azure Architect Technologies</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Specialty</h3>
+                    <p>Certificações de especialização em áreas específicas.</p>
+                    <div style="margin-top: 1rem;">
+                        <span class="cert-badge">AZ-400</span>
+                        <p style="margin-top: 0.5rem; font-size: 0.95rem; color: #666;">DevOps Engineer Expert - CI/CD e automação</p>
+                        <span class="cert-badge">AZ-120</span>
+                        <p style="margin-top: 0.5rem; font-size: 0.95rem; color: #666;">Planning and Administering SAP on Azure</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: #f0f8ff; padding: 2rem; border-radius: 8px; margin-top: 2rem;">
+                <h3 style="color: var(--primary); margin-bottom: 1rem;">💡 Dicas para Certificação</h3>
+                <ul style="margin-left: 2rem; color: #666; line-height: 1.8;">
+                    <li><strong>Estude oficial:</strong> Microsoft Learn (learn.microsoft.com) - cursos gratuitos</li>
+                    <li><strong>Practice Exams:</strong> Faça testes práticos no Microsoft Learning Portal</li>
+                    <li><strong>Hands-on Labs:</strong> Pratique no Azure Free Account (200€ créditos)</li>
+                    <li><strong>Study Groups:</strong> Junte-se a comunidades e grupos de estudo</li>
+                    <li><strong>Real-world Experience:</strong> Trabalhe com Azure em projetos reais</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Newsletter -->
+        <section class="newsletter">
+            <h3>📬 Receba Conteúdo Exclusivo</h3>
+            <p>Subscreva para receber artigos, estudos de caso e dicas sobre Azure Cloud, Security e Certificações</p>
+            <form class="newsletter-form" onsubmit="handleNewsletterSubmit(event)">
+                <input type="email" placeholder="O seu email" required>
+                <button type="submit">Subscrever</button>
+            </form>
+            <p style="font-size: 0.9rem; margin-top: 1rem; opacity: 0.9;">Respeitamos sua privacidade. Sem SPAM, desinscreva-se a qualquer momento.</p>
+        </section>
+
+        <!-- Resources Section -->
+        <section id="resources">
+            <h2>📚 Recursos & Ligações Úteis</h2>
+
+            <div class="resource-list">
+                <h3 style="color: var(--primary); margin-bottom: 1.5rem;">Aprendizagem & Documentação</h3>
+                <div class="resource-item">
+                    <strong>Microsoft Learn</strong>
+                    <p>Plataforma oficial de aprendizagem gratuita com módulos, labs e trilhos de certificação.</p>
+                    <a href="https://learn.microsoft.com" target="_blank">learn.microsoft.com →</a>
+                </div>
+                <div class="resource-item">
+                    <strong>Azure Documentation</strong>
+                    <p>Documentação completa e técnica de todos os serviços Azure.</p>
+                    <a href="https://docs.microsoft.com/azure" target="_blank">docs.microsoft.com/azure →</a>
+                </div>
+                <div class="resource-item">
+                    <strong>Microsoft Tech Community</strong>
+                    <p>Comunidade oficial para partilha de conhecimento e suporte técnico.</p>
+                    <a href="https://techcommunity.microsoft.com" target="_blank">techcommunity.microsoft.com →</a>
+                </div>
+                <div class="resource-item">
+                    <strong>Azure Fundamentals Study Guide</strong>
+                    <p>Guia oficial de estudo para certificações Azure.</p>
+                    <a href="https://aka.ms/az-fundamentals-study-guide" target="_blank">Study Guide →</a>
+                </div>
+            </div>
+
+            <div class="resource-list" style="margin-top: 2rem;">
+                <h3 style="color: var(--secondary); margin-bottom: 1.5rem;">Ferramentas & Simuladores</h3>
+                <div class="resource-item">
+                    <strong>Azure Free Account</strong>
+                    <p>Crie conta gratuita com 200€ de créditos para explorar Azure (12 meses).</p>
+                    <a href="https://azure.microsoft.com/free" target="_blank">azure.microsoft.com/free →</a>
+                </div>
+                <div class="resource-item">
+                    <strong>Azure Calculator</strong>
+                    <p>Calcule custos de soluções Azure antes de implementar.</p>
+                    <a href="https://azure.microsoft.com/pricing/calculator" target="_blank">Pricing Calculator →</a>
+                </div>
+                <div class="resource-item">
+                    <strong>Azure Well-Architected Framework</strong>
+                    <p>Framework para design de soluções escaláveis, seguras e otimizadas.</p>
+                    <a href="https://learn.microsoft.com/en-us/azure/well-architected" target="_blank">WAF Docs →</a>
+                </div>
+                <div class="resource-item">
+                    <strong>Microsoft Certification Exams</strong>
+                    <p>Plataforma oficial para agendar e realizar exames de certificação.</p>
+                    <a href="https://learn.microsoft.com/en-us/credentials/certifications" target="_blank">Certifications →</a>
+                </div>
+            </div>
+
+            <div class="resource-list" style="margin-top: 2rem;">
+                <h3 style="color: var(--primary); margin-bottom: 1.5rem;">Comunidades & Eventos</h3>
+                <div class="resource-item">
+                    <strong>Microsoft Azure Events</strong>
+                    <p>Webinars, conferências e eventos sobre Azure Cloud.</p>
+                    <a href="https://events.microsoft.com" target="_blank">events.microsoft.com →</a>
+                </div>
+                <div class="resource-item">
+                    <strong>Stack Overflow - Azure Tag</strong>
+                    <p>Faça perguntas e aprenda com a comunidade de developers.</p>
+                    <a href="https://stackoverflow.com/questions/tagged/azure" target="_blank">Stack Overflow Azure →</a>
+                </div>
+                <div class="resource-item">
+                    <strong>Cloud Skills Challenge</strong>
+                    <p>Desafios gratuitos para ganhar crachás digitais (badges) da Microsoft.</p>
+                    <a href="https://microsoft.com/cloudskills" target="_blank">Cloud Skills Challenge →</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>☁️ Azure Cloud Hub</h4>
+                <p>Platform de partilha de conhecimento sobre Azure Cloud, IaaS, SaaS, Security e Certificações Microsoft.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Tópicos</h4>
+                <a href="#iaas">Infrastructure as a Service</a>
+                <a href="#saas">SaaS & PaaS</a>
+                <a href="#security">Azure Security</a>
+                <a href="#certifications">Certificações</a>
+                <a href="#resources">Recursos</a>
+            </div>
+            <div class="footer-section">
+                <h4>Recursos</h4>
+                <a href="https://learn.microsoft.com" target="_blank">Microsoft Learn</a>
+                <a href="https://docs.microsoft.com/azure" target="_blank">Azure Documentation</a>
+                <a href="https://azure.microsoft.com/free" target="_blank">Free Account</a>
+                <a href="https://techcommunity.microsoft.com" target="_blank">Tech Community</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Azure Cloud Knowledge Hub. Todos os direitos reservados. | <a href="#" style="color: #999;">Política de Privacidade</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Newsletter Subscription
+        function handleNewsletterSubmit(event) {
+            event.preventDefault();
+            const email = event.target.querySelector('input[type="email"]').value;
+            alert(`Obrigado por se subscrever! Email: ${email}\n\nEm breve receberá conteúdo exclusivo sobre Azure Cloud.`);
+            event.target.reset();
+        }
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            const navLinks = document.querySelector('.nav-links');
+            if (navLinks.style.display === 'flex') {
+                navLinks.style.display = 'none';
+            } else {
+                navLinks.style.display = 'flex';
+            }
+        });
+    </script>
+</body>
+</html>
